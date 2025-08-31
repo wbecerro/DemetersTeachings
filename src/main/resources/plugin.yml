@@ -1,0 +1,11 @@
+name: DemetersTeachings
+version: 1.0
+main: wbe.demetersTeachings.DemetersTeachings
+api-version: 1.21
+author: wbe
+softdepend: [PlaceholderAPI, mcMMO]
+commands:
+  DemetersTeachings:
+    description: DemetersTeachings main command
+    aliases: [dt, demeterst, dteachings]
+    permission: demetersteachings.command

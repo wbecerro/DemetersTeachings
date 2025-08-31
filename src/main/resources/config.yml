@@ -1,0 +1,148 @@
+Config:
+  baseFoodChance: 0.1
+  baseDoubleChance: 0
+
+Messages:
+  noPermission: "&b[&cGranja&b] &eNo tienes permiso para hacer esto."
+  notEnoughArgs: "&b[&cGranja&b] &eNo has especificado suficientes argumentos."
+  reload: "&b[&cGranja&b] &eEl plugin se ha recargado con éxito."
+  list : "&b[&cGranja&b] &eLas comidas disponibles son: "
+  doubleDrop: "&b[&cGranja&b] &eHas encontrado 2 comidas en este cultivo."
+  hoeGiven: "&b[&cGranja&b] &eHas conseguido un &2&lReliquia de Naxos&e."
+  invalidMaterial: "&b[&cGranja&b] &eEl material especificado no es válido."
+  hoeArguments: "&b[&cGranja&b] &eEl uso es /demetersteachings hoe <Material> <Material alt.> <Prob. Comida> [Jugador]."
+  foodGiven: "&b[&cGranja&b] &eHas encontrado la comida %food%&e."
+  foodArguments: "&b[&cGranja&b] &eEl uso es /demetersteachings food <Comida> [Jugador]."
+  foodChanceAdded: "&b[&cGranja&b] &eSe ha añadido probabilidad de comida al objeto."
+  foodChanceArguments: "&b[&cGranja&b] &eEl uso es /demetersteachings foodChance <Probabilidad>."
+  doubleAdded: "&b[&cGranja&b] &eSe ha añadido probabilidad de doble comida al objeto."
+  doubleArguments: "&b[&cGranja&b] &eEl uso es /demetersteachings double <Probabilidad>."
+  modeChanged: "&d&lModo cambiado"
+  stats:
+    - "&d&m-===- &b[&cGranja&b] &d&m-===-"
+    - "&bProbabilidad de comida: &e%foodChance%%"
+    - "&bProbabilidad de doble: &e%doubleChance%%"
+    - "&d&m-===- &b[&cGranja&b] &d&m-===-"
+  help:
+    - "&d&m -===- &b[&cGranja&b] &d&m-===-"
+    - "&b/demetersteachings &eMuestra esta página."
+    - "&b/demetersteachings hoe <Material> <Material alt.> <Prob. Comida> [Jugador] &eDa una &2&lReliquia de Naxos&e."
+    - "&b/demetersteachings list &eMuestra todas las comidas disponibles."
+    - "&b/demetersteachings food <Comida> [Jugador] &eDa una comida a un jugador."
+    - "&b/demetersteachings foodChance <Probabilidad> &eAñade probabilidad de comida al objeto."
+    - "&b/demetersteachings double <Probabilidad> &eAñade probabilidd de doble comida al objeto."
+    - "&b/demetersteachings stats &eMuestra tus estadísticas."
+    - "&b/demetersteachings reload &eRecarga la configuración del plugin."
+    - "&b"
+    - "&eLeyenda: &b<> &eObligatorio  &b[] &eOpcional"
+    - "&d&m -===- &b[&cGranja&b] &d&m-===-"
+
+Sounds:
+  doubleDropSound: entity.player.levelup
+  foodDropSound: entity.player.burp
+  changeModeSound: block.lever.click
+
+Items:
+  hoe:
+    name: "&f&l🌺 &2&lReliquia de Naxos &f&l🌺"
+    lore:
+      - "&7"
+      - "&7Antigua reliquia del templo dedicado a la"
+      - "&7diosa de la agricultura y la fertilidad."
+      - "&cSHIFT + Soltar &7para alternar."
+      - "&7"
+    foodChance: "&7Probabilidad de comida: &d%food_chance%%"
+    doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
+
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/meta/components/consumable/ConsumableComponent.html
+Foods:
+  example:
+    material: DIRT
+    name: "&6Example food"
+    lore:
+      - "&7Lore for the food"
+    glow: false
+    nutrition: 6
+    saturation: 7.5
+    canAlwaysEat: true
+    animation: EAT
+    consumeSeconds: 1.6
+    sound: ENTITY_PLAYER_BURP
+    effects:
+      REGENERATION:
+        level: 1
+        duration: 5
+        chance: 50
+
+Crops:
+  harvest:
+    SWEET_BERRY_BUSH:
+      foods:
+        example:
+          weight: 10
+    CAVE_VINES:
+      foods:
+        example:
+          weight: 10
+    CAVE_VINES_PLANT:
+      foods:
+        example:
+          weight: 10
+  break:
+    PITCHER_CROP:
+      foods:
+        example:
+          weight: 10
+    WHEAT:
+      foods:
+        example:
+          weight: 10
+    BEETROOTS:
+      foods:
+        example:
+          weight: 10
+    POTATOES:
+      foods:
+        example:
+          weight: 10
+    CARROTS:
+      foods:
+        example:
+          weight: 10
+    NETHER_WART:
+      foods:
+        example:
+          weight: 10
+    COCOA:
+      foods:
+        example:
+          weight: 10
+  checkBreak:
+    MELON:
+      foods:
+        example:
+          weight: 10
+    PUMPKIN:
+      foods:
+        example:
+          weight: 10
+    SUGAR_CANE:
+      foods:
+        example:
+          weight: 10
+    CACTUS:
+      foods:
+        example:
+          weight: 10
+    CACTUS_FLOWER:
+      foods:
+        example:
+          weight: 10
+    BAMBOO:
+      foods:
+        example:
+          weight: 10
+    TORCHFLOWER:
+      foods:
+        example:
+          weight: 10
