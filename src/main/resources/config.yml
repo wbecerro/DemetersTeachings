@@ -53,6 +53,16 @@ Items:
       - "&7"
     foodChance: "&7Probabilidad de comida: &d%food_chance%%"
     doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
+  foodStats:
+    - ""
+    - "&7&nEstadísticas"
+    - "&7Comida: &a%food%"
+    - "&7Saturación: &a%saturation%"
+    - "&7Consumo: &a%consume%s"
+    - ""
+    - "&7&nEfectos"
+  noEffects: "&7Ninguno"
+  foodEffect: "  &7» %effect% &a%level% %duration%s %chance%%"
 
 # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/meta/components/consumable/ConsumableComponent.html
 Foods:
@@ -67,7 +77,7 @@ Foods:
     canAlwaysEat: true
     animation: EAT
     consumeSeconds: 1.6
-    sound: ENTITY_PLAYER_BURP
+    sound: entity.player.burp
     effects:
       REGENERATION:
         level: 1

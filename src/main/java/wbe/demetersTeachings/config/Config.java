@@ -1,10 +1,7 @@
 package wbe.demetersTeachings.config;
 
 import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -28,6 +25,9 @@ public class Config {
     public List<String> hoeLore;
     public String foodChance;
     public String doubleChance;
+    public List<String> foodStats;
+    public String noEffects;
+    public String foodEffect;
 
     public HashMap<String, Food> foods = new HashMap<>();
     public HashMap<Material, Crop> harvestCrops = new HashMap<>();
@@ -48,6 +48,9 @@ public class Config {
         hoeLore = config.getStringList("Items.hoe.lore");
         foodChance = config.getString("Items.hoe.foodChance").replace("&", "§");
         doubleChance = config.getString("Items.hoe.doubleChance").replace("&", "§");
+        noEffects = config.getString("Items.noEffects").replace("&", "§");
+        foodEffect = config.getString("Items.foodEffect").replace("&", "§");
+        foodStats = config.getStringList("Items.foodStats");
 
         loadFoods();
         loadHarvestCrops();
@@ -68,19 +71,19 @@ public class Config {
             ItemUseAnimation animation = ItemUseAnimation.valueOf(config.getString("Foods." + configFood + ".animation"));
             float consumeSeconds = (float) config.getDouble("Foods." + configFood + ".consumeSeconds");
             Food food = new Food(configFood, material, name, lore, nutrition, glow, saturation, canAlwaysEat, animation, consumeSeconds);
-            if(config.contains("Foods." + food + ".sound")) {
-                food.setSound(Registry.SOUNDS.get(NamespacedKey.minecraft(config.getString("Foods." + food + ".sound").toLowerCase())));
+            if(config.contains("Foods." + configFood + ".sound")) {
+                food.setSound(Registry.SOUNDS.get(NamespacedKey.minecraft(config.getString("Foods." + configFood + ".sound").toLowerCase())));
             }
 
-            if(config.contains("Foods." + food + ".effects")) {
-                Set<String> effects = config.getConfigurationSection("Foods." + food + ".effects").getKeys(false);
-                HashMap<Double, PotionEffect> potionEffects = new HashMap<>();
+            if(config.contains("Foods." + configFood + ".effects")) {
+                Set<String> effects = config.getConfigurationSection("Foods." + configFood + ".effects").getKeys(false);
+                HashMap<PotionEffect, Double> potionEffects = new HashMap<>();
                 for(String effect : effects) {
-                    int level = config.getInt("Foods." + food + ".effects." + effect + ".level") - 1;
-                    int duration = config.getInt("Foods." + food + ".effects." + effect + ".duration") * 20;
-                    double chance = config.getDouble(("Foods." + food + ".effects." + effect + ".chance"));
-                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.getByName(effect), duration, level);
-                    potionEffects.put(chance, potionEffect);
+                    int level = config.getInt("Foods." + configFood + ".effects." + effect + ".level") - 1;
+                    int duration = config.getInt("Foods." + configFood + ".effects." + effect + ".duration") * 20;
+                    double chance = config.getDouble(("Foods." + configFood + ".effects." + effect + ".chance")) / 100;
+                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.getByName(effect.toUpperCase()), duration, level);
+                    potionEffects.put(potionEffect, chance);
                 }
 
                 food.setEffects(potionEffects);

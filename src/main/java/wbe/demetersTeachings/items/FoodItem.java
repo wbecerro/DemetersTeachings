@@ -38,6 +38,34 @@ public class FoodItem extends ItemStack {
         for(String line : food.getLore()) {
             lore.add(line.replace("&", "§"));
         }
+
+        for(String line : DemetersTeachings.config.foodStats) {
+            lore.add(line.replace("&", "§")
+                    .replace("%food%", String.valueOf(food.getNutrition()))
+                    .replace("%saturation%", String.valueOf(food.getSaturation()))
+                    .replace("%consume%", String.valueOf(food.getConsumeSeconds())));
+        }
+
+        Consumable.Builder builder = Consumable.consumable();
+        builder.animation(food.getAnimation()).consumeSeconds(food.getConsumeSeconds())
+                .sound(Registry.SOUNDS.getKey(food.getSound()));
+
+        if(food.getEffects() != null && !food.getEffects().isEmpty()) {
+            for(Map.Entry<PotionEffect, Double> effect : food.getEffects().entrySet()) {
+                ConsumeEffect consumableEffect = ConsumeEffect.applyStatusEffects(List.of(effect.getKey()), effect.getValue().floatValue());
+
+                builder.addEffect(consumableEffect);
+                PotionEffect potion = effect.getKey();
+                lore.add(DemetersTeachings.config.foodEffect.replace("%effect%", potion.getType().getName())
+                        .replace("%level%", String.valueOf(potion.getAmplifier() + 1))
+                        .replace("%duration%", String.valueOf((int) potion.getDuration() / 20))
+                        .replace("%chance%", String.valueOf(effect.getValue() * 100)));
+            }
+
+        } else {
+            lore.add(DemetersTeachings.config.noEffects);
+        }
+
         meta.setLore(lore);
 
         NamespacedKey effectivenessKey = new NamespacedKey(DemetersTeachings.getInstance(), "food");
@@ -55,19 +83,6 @@ public class FoodItem extends ItemStack {
         foodComponent.setCanAlwaysEat(food.isCanAlwaysEat());
         meta.setFood(foodComponent);
         setItemMeta(meta);
-
-        Consumable.Builder builder = Consumable.consumable();
-        builder.animation(food.getAnimation()).consumeSeconds(food.getConsumeSeconds())
-                        .sound(Registry.SOUNDS.getKey(food.getSound()));
-
-        if(food.getEffects() != null && !food.getEffects().isEmpty()) {
-            for(Map.Entry<Double, PotionEffect> effect : food.getEffects().entrySet()) {
-                ConsumeEffect consumableEffect = ConsumeEffect.applyStatusEffects(List.of(effect.getValue()), effect.getKey().floatValue());
-
-                builder.addEffect(consumableEffect);
-            }
-
-        }
 
         this.setData(DataComponentTypes.CONSUMABLE, builder.build());
     }
