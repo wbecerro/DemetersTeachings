@@ -11,6 +11,9 @@ import wbe.demetersTeachings.config.Food;
 import wbe.demetersTeachings.items.FoodItem;
 import wbe.demetersTeachings.items.Hoe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommandListener implements CommandExecutor {
 
     private DemetersTeachings plugin;
@@ -84,7 +87,11 @@ public class CommandListener implements CommandExecutor {
                     return false;
                 }
 
-                sender.sendMessage(DemetersTeachings.messages.list + DemetersTeachings.config.foods.values().toString());
+                List<String> foods = new ArrayList<>();
+                DemetersTeachings.config.foods.values().forEach((food) -> {
+                    foods.add(food.getId());
+                });
+                sender.sendMessage(DemetersTeachings.messages.list + foods.toString());
             } else if(args[0].equalsIgnoreCase("food")) {
                 if(!sender.hasPermission("demetersteachings.command.food")) {
                     sender.sendMessage(DemetersTeachings.messages.noPermission);
