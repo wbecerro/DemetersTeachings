@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -77,16 +78,16 @@ public class Config {
 
             if(config.contains("Foods." + configFood + ".effects")) {
                 Set<String> effects = config.getConfigurationSection("Foods." + configFood + ".effects").getKeys(false);
-                HashMap<PotionEffect, Double> potionEffects = new HashMap<>();
+                List<FoodEffect> foodEffects = new ArrayList<>();
                 for(String effect : effects) {
                     int level = config.getInt("Foods." + configFood + ".effects." + effect + ".level") - 1;
                     int duration = config.getInt("Foods." + configFood + ".effects." + effect + ".duration") * 20;
                     double chance = config.getDouble(("Foods." + configFood + ".effects." + effect + ".chance")) / 100;
                     PotionEffect potionEffect = new PotionEffect(PotionEffectType.getByName(effect.toUpperCase()), duration, level);
-                    potionEffects.put(potionEffect, chance);
+                    foodEffects.add(new FoodEffect(potionEffect, chance));
                 }
 
-                food.setEffects(potionEffects);
+                food.setEffects(foodEffects);
             }
 
             foods.put(configFood, food);

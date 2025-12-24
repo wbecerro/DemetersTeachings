@@ -32,7 +32,7 @@ public class Food {
 
     private Sound sound = Sound.ENTITY_PLAYER_BURP;
 
-    private HashMap<PotionEffect, Double> effects;
+    private List<FoodEffect> effects;
 
     public Food(String id, Material material, String name, List<String> lore, int nutrition, boolean glow,
                 float saturation, boolean canAlwaysEat, ItemUseAnimation animation, float consumeSeconds) {
@@ -136,11 +136,11 @@ public class Food {
         this.sound = sound;
     }
 
-    public HashMap<PotionEffect, Double> getEffects() {
+    public List<FoodEffect> getEffects() {
         return effects;
     }
 
-    public void setEffects(HashMap<PotionEffect, Double> effects) {
+    public void setEffects(List<FoodEffect> effects) {
         this.effects = effects;
     }
 }

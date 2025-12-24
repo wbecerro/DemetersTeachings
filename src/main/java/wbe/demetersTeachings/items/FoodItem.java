@@ -15,6 +15,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import wbe.demetersTeachings.DemetersTeachings;
 import wbe.demetersTeachings.config.Food;
+import wbe.demetersTeachings.config.FoodEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +52,15 @@ public class FoodItem extends ItemStack {
                 .sound(Registry.SOUNDS.getKey(food.getSound()));
 
         if(food.getEffects() != null && !food.getEffects().isEmpty()) {
-            for(Map.Entry<PotionEffect, Double> effect : food.getEffects().entrySet()) {
-                ConsumeEffect consumableEffect = ConsumeEffect.applyStatusEffects(List.of(effect.getKey()), effect.getValue().floatValue());
+            for(FoodEffect effect : food.getEffects()) {
+                ConsumeEffect consumableEffect = ConsumeEffect.applyStatusEffects(List.of(effect.getEffect()), (float) effect.getChance());
 
                 builder.addEffect(consumableEffect);
-                PotionEffect potion = effect.getKey();
+                PotionEffect potion = effect.getEffect();
                 lore.add(DemetersTeachings.config.foodEffect.replace("%effect%", potion.getType().getName())
                         .replace("%level%", String.valueOf(potion.getAmplifier() + 1))
                         .replace("%duration%", String.valueOf((int) potion.getDuration() / 20))
-                        .replace("%chance%", String.valueOf(effect.getValue() * 100)));
+                        .replace("%chance%", String.valueOf(effect.getChance() * 100)));
             }
 
         } else {
