@@ -3,9 +3,7 @@ package wbe.demetersTeachings.config;
 import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.potion.PotionEffect;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class Food {

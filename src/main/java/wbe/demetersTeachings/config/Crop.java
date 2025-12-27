@@ -10,16 +10,16 @@ public class Crop {
 
     private Material id;
 
-    private HashMap<Double, Food> foods;
+    private HashMap<Food, Double> foods;
 
     private double maxWeight;
 
-    public Crop(Material id, HashMap<Double, Food> foods) {
+    public Crop(Material id, HashMap<Food, Double> foods) {
         this.id = id;
         this.foods = foods;
 
         maxWeight = 0;
-        for(Double weight : foods.keySet()) {
+        for(Double weight : foods.values()) {
             maxWeight += weight;
         }
     }
@@ -32,11 +32,11 @@ public class Crop {
         this.id = id;
     }
 
-    public HashMap<Double, Food> getFoods() {
+    public HashMap<Food, Double> getFoods() {
         return foods;
     }
 
-    public void setFoods(HashMap<Double, Food> foods) {
+    public void setFoods(HashMap<Food, Double> foods) {
         this.foods = foods;
     }
 
@@ -48,16 +48,16 @@ public class Crop {
         Random random = new Random();
         double randomNumber = random.nextDouble(maxWeight);
         double weight = 0;
-        Map.Entry<Double, Food> last = null;
+        Map.Entry<Food, Double> last = null;
 
-        for(Map.Entry<Double, Food> reward : foods.entrySet()) {
-            weight += reward.getKey();
+        for(Map.Entry<Food, Double> reward : foods.entrySet()) {
+            weight += reward.getValue();
             if(randomNumber < weight) {
-                return reward.getValue();
+                return reward.getKey();
             }
             last = reward;
         }
 
-        return last.getValue();
+        return last.getKey();
     }
 }

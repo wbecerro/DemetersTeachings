@@ -98,7 +98,7 @@ public class Config {
         Set<String> configCrops = config.getConfigurationSection("Crops.harvest").getKeys(false);
         for(String crop : configCrops) {
             Material id = Material.valueOf(crop);
-            HashMap<Double, Food> foods = loadFoodRewards("Crops.harvest." + crop + ".foods");
+            HashMap<Food, Double> foods = loadFoodRewards("Crops.harvest." + crop + ".foods");
             harvestCrops.put(id, new Crop(id, foods));
         }
     }
@@ -107,7 +107,7 @@ public class Config {
         Set<String> configCrops = config.getConfigurationSection("Crops.break").getKeys(false);
         for(String crop : configCrops) {
             Material id = Material.valueOf(crop);
-            HashMap<Double, Food> foods = loadFoodRewards("Crops.break." + crop + ".foods");
+            HashMap<Food, Double> foods = loadFoodRewards("Crops.break." + crop + ".foods");
             breakCrops.put(id, new Crop(id, foods));
         }
     }
@@ -116,18 +116,18 @@ public class Config {
         Set<String> configCrops = config.getConfigurationSection("Crops.checkBreak").getKeys(false);
         for(String crop : configCrops) {
             Material id = Material.valueOf(crop);
-            HashMap<Double, Food> foods = loadFoodRewards("Crops.checkBreak." + crop + ".foods");
+            HashMap<Food, Double> foods = loadFoodRewards("Crops.checkBreak." + crop + ".foods");
             checkBreakCrops.put(id, new Crop(id, foods));
         }
     }
 
-    private HashMap<Double, Food> loadFoodRewards(String path) {
+    private HashMap<Food, Double> loadFoodRewards(String path) {
         Set<String> configRewards = config.getConfigurationSection(path).getKeys(false);
-        HashMap<Double, Food> rewards = new HashMap<>();
+        HashMap<Food, Double> rewards = new HashMap<>();
         for(String reward : configRewards) {
             Food food = foods.get(reward);
             double weight = config.getDouble(path + "." + reward + ".weight");
-            rewards.put(weight, food);
+            rewards.put(food, weight);
         }
 
         return rewards;
