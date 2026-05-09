@@ -12,5 +12,6 @@ public class EventListeners {
         pluginManager.registerEvents(new BlockBreakListeners(), plugin);
         pluginManager.registerEvents(new PlayerDropItemListeners(), plugin);
         pluginManager.registerEvents(new PlayerHarvestBlockListeners(), plugin);
+        pluginManager.registerEvents(new PlayerReceiveFoodListeners(), plugin);
     }
 }

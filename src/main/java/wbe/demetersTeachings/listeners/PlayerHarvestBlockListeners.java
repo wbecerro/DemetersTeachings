@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import wbe.demetersTeachings.DemetersTeachings;
 import wbe.demetersTeachings.config.Crop;
-import wbe.demetersTeachings.items.FoodItem;
+import wbe.demetersTeachings.events.PlayerReceiveFoodEvent;
 
 import java.util.Random;
 
@@ -28,23 +28,10 @@ public class PlayerHarvestBlockListeners implements Listener {
         Crop crop = DemetersTeachings.config.harvestCrops.get(harvested);
         Player player = event.getPlayer();
         double foodChance = DemetersTeachings.utilities.getPlayerFoodChance(player);
-        double doubleChance = DemetersTeachings.utilities.getPlayerDoubleChance(player);
-
         Random random = new Random();
-        int rewardsAmount = 0;
-        if(random.nextDouble(100) <= foodChance) {
-            player.playSound(player.getLocation(), DemetersTeachings.config.foodDropSound, 1F, 1F);
-            rewardsAmount++;
-            if(random.nextDouble(100) <= doubleChance) {
-                player.sendMessage(DemetersTeachings.messages.doubleDrop);
-                player.playSound(player.getLocation(), DemetersTeachings.config.doubleDropSound, 1F, 1F);
-                rewardsAmount++;
-            }
-        }
 
-        for(int i=0;i<rewardsAmount;i++) {
-            FoodItem foodItem = new FoodItem(crop.getRandomReward());
-            event.getHarvestedBlock().getWorld().dropItemNaturally(event.getHarvestedBlock().getLocation(), foodItem);
+        if(random.nextDouble(100) <= foodChance) {
+            DemetersTeachings.getInstance().getServer().getPluginManager().callEvent(new PlayerReceiveFoodEvent(player, crop, event.getHarvestedBlock()));
         }
     }
 }
