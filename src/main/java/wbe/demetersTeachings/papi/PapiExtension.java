@@ -29,9 +29,9 @@ public class PapiExtension extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         if(params.equalsIgnoreCase("foodChance")) {
-            return String.valueOf(DemetersTeachings.utilities.getPlayerFoodChance(player.getPlayer()));
+            return String.format("%.2f", DemetersTeachings.utilities.getPlayerFoodChance(player.getPlayer()));
         } else if(params.equalsIgnoreCase("doubleChance")) {
-            return String.valueOf(DemetersTeachings.utilities.getPlayerDoubleChance(player.getPlayer()));
+            return String.format("%.2f", DemetersTeachings.utilities.getPlayerDoubleChance(player.getPlayer()));
         }
 
         return null;
