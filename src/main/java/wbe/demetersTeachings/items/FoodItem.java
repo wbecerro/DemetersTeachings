@@ -69,6 +69,8 @@ public class FoodItem extends ItemStack {
 
         meta.setLore(lore);
 
+        meta.setMaxStackSize(64);
+
         NamespacedKey effectivenessKey = new NamespacedKey(DemetersTeachings.getInstance(), "food");
         meta.getPersistentDataContainer().set(effectivenessKey, PersistentDataType.BOOLEAN, true);
 
